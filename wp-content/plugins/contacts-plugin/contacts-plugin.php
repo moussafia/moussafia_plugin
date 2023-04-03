@@ -1,6 +1,6 @@
 <?php 
 /*
-Plugin Name:  moussafia plugin
+Plugin Name:  contacts-plugin
 Plugin URI: http://www.moussafia.com
 Description: Développez un plugin avec WordPress
 Version: 1.2.23
@@ -8,11 +8,12 @@ Author: moussafia mohammed
 Author URI: http://www.moussafia.com
 */
 
+
 // Ajouter le menu du plugin dans l'administration
 add_action('admin_menu', 'mon_plugin_menu');
 function mon_plugin_menu() {
-    add_menu_page('moussafia plugin',// The title of the page
-     'moussafia plugin', //The text to display in the menu.
+    add_menu_page('contacts-plugin',// The title of the page
+     'contacts-plugin', //The text to display in the menu.
      'manage_options', //The minimum user capability required to access the page.
       'mon-plugin', //he slug for the menu item.
       'mon_plugin_page', //The function that displays the content of the page.
@@ -32,7 +33,7 @@ function mon_plugin_page() {
 
     <div class="container mx-auto my-4 px-4 lg:px-20">
 
-        <div class="w-full p-3 my-2 md:px-12 lg:w-9/12 lg:pl-20 lg:pr-40 mr-auto rounded-2xl shadow-2xl">
+        <div class="w-full p-3 my-2 md:px-12 lg:w-9/12 lg:pl-20 lg:pr-40 mr-auto rounded-2xl ">
             <div class="flex pb-8 justify-center">
                 <h5 class="font-serif font-bold  text-2xl">Send us a message</h5>
             </div>
@@ -77,7 +78,6 @@ function mon_plugin_page() {
     }
     </style>
 <script>
-window.addEventListener('DOMContentLoaded', function() {
 
     const form = document.getElementById('contact-form');
 
@@ -124,7 +124,6 @@ window.addEventListener('DOMContentLoaded', function() {
     });
 
 
-});
 </script>
 <?php
 }
@@ -214,3 +213,10 @@ function mon_plugin_dashboard_widget() {
         echo '<p>' . __('No messages found.', 'mon-plugin') . '</p>';
     }
 }
+// Add the shortcode for the contact form
+function contact_us_plugin_shortcode() {
+    ob_start();
+    mon_plugin_page();
+    return ob_get_clean();
+}
+add_shortcode( 'contact_us_form', 'contact_us_plugin_shortcode' );
