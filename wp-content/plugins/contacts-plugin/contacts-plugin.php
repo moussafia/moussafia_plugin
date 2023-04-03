@@ -22,109 +22,64 @@ function mon_plugin_menu() {
   
     add_action('wp_dashboard_setup', 'mon_plugin_add_dashboard_widget');
   }
-
-  
+//   <input type="hidden" name="action" value="mon_plugin_submit_form">
+ 
 // Ajouter la page de paramètres du plugin
 function mon_plugin_page() {
 	?>
-<script src="https://cdn.tailwindcss.com"></script>
+ <!-- BEGIN parsley css-->
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/guillaumepotier/Parsley.js@2.9.2/doc/assets/docs.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/guillaumepotier/Parsley.js@2.9.2/src/parsley.css">
+  <!-- END parsley css-->
 
-<div class="flex justify-center w-full">
+  <!-- BEGIN Tailwind-->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- END Tailwind-->
 
-    <div class="container mx-auto my-4 px-4 lg:px-20">
-
-        <div class="w-full p-3 my-2 md:px-12 lg:w-9/12 lg:pl-20 lg:pr-40 mr-auto rounded-2xl ">
-            <div class="flex pb-8 justify-center">
-                <h5 class="font-serif font-bold  text-2xl">Send us a message</h5>
-            </div>
-            <form action="<?php echo admin_url('admin-post.php'); ?>" method="post" id="contact-form">
-            <input type="hidden" name="action" value="mon_plugin_submit_form">
-                <div class="relative z-0 w-full mb-6 group">
-                    <label for="floating_email" class="">Your email</label>
-                    <input type="email" name="email" id="email" class="w-full py-2.5 px-0" required>
-                </div>
-                <div class="grid md:grid-cols-2 md:gap-6">
-                    <div class="relative z-0 w-full mb-6 group">
-                        <label for="floating_your_name">Your name</label>
-                        <input type="text" name="your_name" id="your_name" class="block py-2.5 px-0 w-full "
-                         required>
-                    </div>
-                    <div class="relative z-0 w-full mb-6 group">
-                        <label for="floating_last_name" class="mb-2">Sujet</label>
-                        <input type="text" name="sujet" id="sujet" class="block py-2.5 px-0 w-full"
-                         required>
-                    </div>
-                </div>
-                <div class="grid ">
-                    <div class="relative z-0 w-full mb-6 group">
-                        <label for="floating_company" class="">message</label>
-                        <textarea type="text" name="message" id="message" class="block py-2.5 px-0 w-full"
-                         required></textarea>
-                    </div>
-                </div>
-                <div class="flex justify-center">
-                    <button type="submit"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Send
-                        Message
-                    </button>
-                </div>
-            </form>
+  <!-- ******************************************************* -->
+  <div class="w-full flex items-center justify-center my-12">
+    <div class="bg-white dark:bg-gray-800 shadow rounded py-16 lg:px-28 px-8">
+      <p class="md:text-3xl text-xl font-bold leading-7 text-center text-gray-700 dark:text-white">Contact</p>
+      <form action="<?php echo admin_url('admin-post.php'); ?>" method="post" id="contact-form" data-parsley-validate>
+        <input type="hidden" name="action" value="mon_plugin_submit_form">
+        <div class="md:flex items-center mt-12">
+          <div class="md:w-72 flex flex-col">
+            <label class="text-base font-semibold leading-none text-gray-800 dark:text-white">First Name</label>
+            <input   name="your_name" id="your_name" type="text" class="w-full text-base leading-none text-gray-900 p-3 focus:oultine-none focus:border-indigo-700 mt-4 bg-gray-100 border rounded border-gray-200 placeholder-gray-400" required />
+          </div>
         </div>
+        <div class="md:flex items-center mt-8">
+          <div class="md:w-72 flex flex-col">
+            <label class="text-base font-semibold leading-none text-gray-800 dark:text-white">Email</label>
+            <input   name="email" id="email" role="input" type="email" class="text-base leading-none text-gray-900 p-3 focus:oultine-none focus:border-indigo-700 mt-4 bg-gray-100 border rounded border-gray-200 placeholder-gray-100" required />
+          </div>
+          <div class="md:w-72 flex flex-col md:ml-6 md:mt-0 mt-4">
+            <label class="text-base font-semibold leading-none text-gray-800 dark:text-white">Sujet</label>
+            <input  name="sujet" id="sujet"  type="text" class="text-base leading-none text-gray-900 p-3 focus:oultine-none focus:border-indigo-700 mt-4 bg-gray-100 border rounded border-gray-200 placeholder-gray-100" required />
+          </div>
+        </div>
+        <div>
+          <div class="w-full flex flex-col mt-8">
+            <label class="text-base font-semibold leading-none text-gray-800 dark:text-white">Message</label>
+            <textarea   name="message" id="message" aria-label="leave a message" role="textbox" class="h-36 text-base leading-none text-gray-900 p-3 focus:oultine-none focus:border-indigo-700 mt-4 bg-gray-100 border rounded border-gray-200 placeholder-gray-100 resize-none" required></textarea>
+          </div>
+        </div>
+        <p class="text-xs leading-3 text-gray-600 dark:text-gray-200 mt-4">By clicking submit you agree to our terms of service, privacy policy and how we use data as stated</p>
+        <div class="flex items-center justify-center w-full">
+          <button type="submit" class="mt-9 text-base font-semibold leading-none text-white py-4 px-10 bg-indigo-700 rounded hover:bg-indigo-600 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 focus:outline-none">Envoyer</button>
+        </div>
+      </form>
     </div>
-</div>
-<style>
-    .fail{
-        border-color: red !important;
-    }
-    </style>
-<script>
+  </div>
 
-    const form = document.getElementById('contact-form');
+  <!-- ******************************************************* -->
+  <!-- Begin jQuery -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <!-- End jQuery -->
 
-    const firstName = form.elements["your_name"];
-    const email = form.elements["email"];
-    const sujet = form.elements['sujet']
-    const message = form.elements["message"];
-    form.addEventListener("submit", function(event) {
-        let valid = true;
-        // Check first name
-        if (!firstName.value.match(/^[A-Za-z\s]+$/)) {
-            firstName.classList.add("fail");
-            valid = false;
-        } else {
-            firstName.classList.remove("fail");
-        }
-
-        // Check email
-        if (!email.value.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)) {
-            email.classList.add("fail");
-            valid = false;
-        } else {
-            email.classList.remove("fail");
-        }
-        // Check sujet
-        if (!sujet.value.match(/^[A-Za-z\s]+$/)) {
-            message.classList.add("fail");
-            valid = false;
-        } else {
-            message.classList.remove("fail");
-        }
-
-
-        // Check message
-        if (!message.value.match(/^[A-Za-z0-9\s.,!?]+$/)) {
-            message.classList.add("fail");
-            valid = false;
-        } else {
-            message.classList.remove("fail");
-        }
-        if (valid==false) {
-            event.preventDefault();
-        }
-    });
-
-
-</script>
+  <!-- BEGIN parsley js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js"></script>
+  <!-- END parsley js-->
 <?php
 }
 
